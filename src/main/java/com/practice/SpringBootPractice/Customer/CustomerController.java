@@ -1,9 +1,6 @@
 package com.practice.SpringBootPractice.Customer;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,4 +18,21 @@ public class CustomerController {
        return customerService.getCustomers();
     }
 
+    @PostMapping
+    public void createCustomer(@RequestBody CreateCustomerRequest createCustomerRequest){
+        customerService.createCustomer(createCustomerRequest);
+    }
+
+    @PutMapping(path = "/{id}")
+    public void updateCustomer(@PathVariable("id") Long id,
+                               @RequestParam(required = false) String name,
+                               @RequestParam(required = false) String email,
+                               @RequestParam(required = false) String address){
+        customerService.updateCustomer(id, name, email, address);
+    }
+
+    @DeleteMapping(path="/{id}")
+    public void deleteCustomer(@PathVariable("id") Long id){
+        customerService.deleteCustomer(id);
+    }
 }
